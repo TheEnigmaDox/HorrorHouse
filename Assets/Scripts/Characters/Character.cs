@@ -47,8 +47,6 @@ public class Character : MonoBehaviour
         m_movement.y += Physics.gravity.y * Time.deltaTime;
 
         m_characterController.Move(m_currentSpeed * Time.deltaTime * m_movement);
-
-        Debug.Log(m_moveDirection);
     }
 
     protected void CharacterRun()
