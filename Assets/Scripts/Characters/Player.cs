@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Experimental.GlobalIllumination;
 
 public class Player : Character
 {
@@ -32,12 +34,32 @@ public class Player : Character
                 debugSphere.transform.position = hit.point;
 
                 Debug.Log("We are looking at : " + hit.collider.gameObject.name);
-                DoorController doorController = hit.collider.gameObject.GetComponent<DoorController>();
+                
+                if (hit.collider.gameObject.GetComponent<DoorController>())
+                {
+                    DoorController doorController = hit.collider.gameObject.GetComponent<DoorController>();
 
-               
+                    doorController.DoorState = !doorController.DoorState;
+                }
+                else if (hit.collider.transform.Find("Directional Light").gameObject)
+                {
+                    GameObject light = hit.collider.transform.Find("Directional Light").gameObject;
 
-                doorController.DoorState = !doorController.DoorState;
+                    if (light.activeSelf)
+                    {
+                        light.SetActive(false);
+                    }
+                    else
+                    {
+                        light.SetActive(true);
+                    }
+                }
             } 
         }
+    }
+
+    IEnumerable Wait(float waitTime)
+    {
+        yield return new WaitForSeconds(waitTime);
     }
 }

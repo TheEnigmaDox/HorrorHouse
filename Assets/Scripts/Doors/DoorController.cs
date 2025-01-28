@@ -10,7 +10,7 @@ public class DoorController : MonoBehaviour
     public bool DoorState
     {
         get { return m_doorState; }
-        set { m_doorState = value; }
+        set { m_doorState = value; } 
     }
 
     Animator m_animator;
@@ -24,13 +24,6 @@ public class DoorController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (m_doorState)
-        {
-            m_animator.SetBool("DoorState", m_doorState);
-        }
-        else
-        {
-            m_animator.SetBool("DoorState", m_doorState);
-        }
+        m_animator.SetBool("DoorState", m_doorState);
     }
 }
