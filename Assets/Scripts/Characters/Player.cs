@@ -7,6 +7,8 @@ public class Player : Character
     [SerializeField]
     private Transform m_viewPoint;
 
+    [SerializeField]
+    GameObject debugSphere;
 
     private void Start()
     {
@@ -16,22 +18,26 @@ public class Player : Character
 
     private void Update()
     {
-        Ray ray = Camera.main.ScreenPointToRay(new Vector3(0.5f, 0.5f, 0.5f));
+        MoveCharacter(m_viewPoint);
+
+        Ray ray = Camera.main.ScreenPointToRay(new Vector2(960, 540));
         ray.origin = Camera.main.transform.position;
+
+        Debug.DrawLine(ray.origin, ray.direction, Color.red);
 
         if (Input.GetMouseButtonDown(0))
         {
-            if (Physics.Raycast(ray, out RaycastHit hit))
+            if (Physics.Raycast(ray, out RaycastHit hit, 2))
             {
+                debugSphere.transform.position = hit.point;
+
                 Debug.Log("We are looking at : " + hit.collider.gameObject.name);
                 DoorController doorController = hit.collider.gameObject.GetComponent<DoorController>();
+
+               
 
                 doorController.DoorState = !doorController.DoorState;
             } 
         }
-
-        Debug.DrawLine(ray.origin, ray.direction, Color.red);
-
-        MoveCharacter(m_viewPoint);
     }
 }
