@@ -44,7 +44,7 @@ public class Player : Character
 
                     doorController.DoorState = !doorController.DoorState;
                 }
-                else if (hit.collider.transform.GetComponent<LightSwitch>())
+                else if (hit.collider.gameObject.GetComponent<LightSwitch>())
                 {
                     LightSwitch lightSwitch = hit.collider.gameObject.GetComponent<LightSwitch>();
 
