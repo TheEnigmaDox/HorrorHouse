@@ -5,6 +5,7 @@ using UnityEngine;
 public class Character : MonoBehaviour
 {
     //Movement
+    protected bool m_isMoving = false;
     protected float m_currentSpeed;
     protected float m_walkSpeed = 5f;
     protected float m_runSpeed = 10f;
@@ -16,6 +17,9 @@ public class Character : MonoBehaviour
     protected float m_mouseSensitivity = 1f;
     protected float m_vertRotationStore;
     protected Vector2 m_mouseInput;
+
+    //Components
+    protected Animator m_animator;
 
     protected void MoveCharacter(Transform viewPoint)
     {
@@ -47,6 +51,15 @@ public class Character : MonoBehaviour
         m_movement.y += Physics.gravity.y * Time.deltaTime;
 
         m_characterController.Move(m_currentSpeed * Time.deltaTime * m_movement);
+
+        if(m_characterController.velocity != Vector3.zero)
+        {
+            m_isMoving = true;
+        }
+        else
+        {
+            m_isMoving = false;
+        }
     }
 
     protected void CharacterRun()

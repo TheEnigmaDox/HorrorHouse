@@ -15,6 +15,7 @@ public class Player : Character
     private void Start()
     {
         m_characterController = GetComponent<CharacterController>();
+        m_animator = GetComponent<Animator>();
         m_currentSpeed = m_walkSpeed;
     }
 
@@ -22,13 +23,15 @@ public class Player : Character
     {
         MoveCharacter(m_viewPoint);
 
+        m_animator.SetBool("IsMoving", m_isMoving);
+
         Ray ray = Camera.main.ScreenPointToRay(new Vector2(960, 540));
         ray.origin = Camera.main.transform.position;
 
-        Debug.DrawLine(ray.origin, ray.direction, Color.red);
-
         if (Input.GetMouseButtonDown(0))
         {
+            Debug.DrawLine(ray.origin, ray.direction, Color.red);
+
             if (Physics.Raycast(ray, out RaycastHit hit, 2))
             {
                 debugSphere.transform.position = hit.point;
@@ -40,6 +43,12 @@ public class Player : Character
                     DoorController doorController = hit.collider.gameObject.GetComponent<DoorController>();
 
                     doorController.DoorState = !doorController.DoorState;
+                }
+                else if (hit.collider.transform.GetComponent<LightSwitch>())
+                {
+                    LightSwitch lightSwitch = hit.collider.gameObject.GetComponent<LightSwitch>();
+
+                    lightSwitch.IsOn = !lightSwitch.IsOn;
                 }
                 else if (hit.collider.transform.Find("Directional Light").gameObject)
                 {
@@ -54,12 +63,11 @@ public class Player : Character
                         light.SetActive(true);
                     }
                 }
+                else if(!hit.collider.transform.Find("Directional Light").gameObject)
+                {
+                    return;
+                }
             } 
         }
-    }
-
-    IEnumerable Wait(float waitTime)
-    {
-        yield return new WaitForSeconds(waitTime);
     }
 }
