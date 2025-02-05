@@ -1,10 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Experimental.GlobalIllumination;
 
 public class LightSwitch : MonoBehaviour
 {
+    [SerializeField]
     private bool m_isOn = false;
+
+    [SerializeField]
+    GameObject m_bigLight;
 
     private Animator m_animator;
 
@@ -23,5 +28,15 @@ public class LightSwitch : MonoBehaviour
     void Update()
     {
         m_animator.SetBool("IsOn", m_isOn);
+
+        if(m_isOn)
+        {
+            m_bigLight.SetActive(true);
+        }
+        else
+        {
+            m_bigLight.SetActive(false);
+        }
+        
     }
 }
