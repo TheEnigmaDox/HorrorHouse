@@ -22,6 +22,8 @@ public class LightSwitch : MonoBehaviour
     private void Start()
     {
         m_animator = GetComponent<Animator>();
+
+        m_bigLight = GameObject.FindGameObjectWithTag("MainBedroomFan");
     }
 
     // Update is called once per frame
@@ -31,12 +33,15 @@ public class LightSwitch : MonoBehaviour
 
         if(m_isOn)
         {
-            m_bigLight.SetActive(true);
+            MainRoomLight mainLight = m_bigLight.GetComponent<MainRoomLight>();
+
+            mainLight.SwitchOn();
         }
         else
         {
-            m_bigLight.SetActive(false);
+            MainRoomLight mainLight = m_bigLight.GetComponent<MainRoomLight>();
+
+            mainLight.SwitchOff();
         }
-        
     }
 }
