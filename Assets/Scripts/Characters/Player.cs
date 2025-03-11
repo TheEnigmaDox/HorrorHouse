@@ -50,22 +50,17 @@ public class Player : Character
 
                     lightSwitch.IsOn = !lightSwitch.IsOn;
                 }
-                else if (hit.collider.transform.Find("Directional Light").gameObject)
+                else if (hit.collider.transform.Find("Directional Light"))
                 {
                     GameObject light = hit.collider.transform.Find("Directional Light").gameObject;
 
-                    if (light.activeSelf)
-                    {
-                        light.SetActive(false);
-                    }
-                    else
-                    {
-                        light.SetActive(true);
-                    }
+                    light.SetActive(!light.activeSelf);
                 }
-                else if(!hit.collider.transform.Find("Directional Light").gameObject)
+                else if (hit.collider.gameObject.GetComponent<Keyboard>())
                 {
-                    return;
+                    Keyboard keyboard = hit.collider.gameObject.GetComponent<Keyboard>();
+
+                    keyboard.m_displayMessage = !keyboard.m_displayMessage;
                 }
             } 
         }

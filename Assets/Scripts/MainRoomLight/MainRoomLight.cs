@@ -21,8 +21,11 @@ public class MainRoomLight : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        m_currRot += m_rotSpeed;
-
+        if(this.gameObject.tag == "MainBedroomFan")
+        {
+            m_currRot += m_rotSpeed;
+        }
+        
         transform.rotation = Quaternion.Euler(transform.rotation.x, m_currRot, transform.rotation.z);
     }
 

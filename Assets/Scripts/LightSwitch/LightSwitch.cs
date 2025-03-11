@@ -9,7 +9,7 @@ public class LightSwitch : MonoBehaviour
     private bool m_isOn = false;
 
     [SerializeField]
-    GameObject m_bigLight;
+    List<GameObject> m_bigLight;
 
     private Animator m_animator;
 
@@ -22,8 +22,6 @@ public class LightSwitch : MonoBehaviour
     private void Start()
     {
         m_animator = GetComponent<Animator>();
-
-        m_bigLight = GameObject.FindGameObjectWithTag("MainBedroomFan");
     }
 
     // Update is called once per frame
@@ -33,15 +31,21 @@ public class LightSwitch : MonoBehaviour
 
         if(m_isOn)
         {
-            MainRoomLight mainLight = m_bigLight.GetComponent<MainRoomLight>();
+            for (int i = 0; i < m_bigLight.Count; i++)
+            {
+                MainRoomLight mainLight = m_bigLight[i].GetComponent<MainRoomLight>();
 
-            mainLight.SwitchOn();
+                mainLight.SwitchOn(); 
+            }
         }
         else
         {
-            MainRoomLight mainLight = m_bigLight.GetComponent<MainRoomLight>();
+            for (int i = 0; i < m_bigLight.Count; i++)
+            {
+                MainRoomLight mainLight = m_bigLight[i].GetComponent<MainRoomLight>();
 
-            mainLight.SwitchOff();
+                mainLight.SwitchOff();
+            }
         }
     }
 }
