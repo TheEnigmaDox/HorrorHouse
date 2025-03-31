@@ -16,6 +16,7 @@ public class ComputerScreen : MonoBehaviour
 
     string m_blankMessage = "";
 
+    [SerializeField]
     string m_message = "She waits where the shadows stretch long, her hollow eyes watching, her tiny hands reaching. " +
         "Forgotten but never alone, she longs for home. Follow the echoes of laughter long lost, " +
         "where dust dances and silence hums. Return her, before she weeps... before she wakes.";
