@@ -2,25 +2,34 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Experimental.GlobalIllumination;
+using UnityEngine.UI;
 
 public class Player : Character
 {
+    private int m_sanity = 100;
+
     [SerializeField]
     private Transform m_viewPoint;
 
     [SerializeField]
     GameObject debugSphere;
 
+    [SerializeField]
+    private Slider m_sanityBar;
+
     private void Start()
     {
         m_characterController = GetComponent<CharacterController>();
         m_animator = GetComponent<Animator>();
         m_currentSpeed = m_walkSpeed;
+
+        m_sanityBar.maxValue = m_sanity;
     }
 
     private void Update()
     {
+        m_sanityBar.value = m_sanity;
+
         MoveCharacter(m_viewPoint);
 
         m_animator.SetBool("IsMoving", m_isMoving);
@@ -64,5 +73,10 @@ public class Player : Character
                 }
             } 
         }
+    }
+
+    public void ReduceSanity(int sanityDrop)
+    {
+        m_sanity -= sanityDrop;
     }
 }
