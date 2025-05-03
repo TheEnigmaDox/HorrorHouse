@@ -18,12 +18,17 @@ public class DoorController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        m_animator = GetComponent<Animator>();
+        m_animator = GetComponentInChildren<Animator>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        m_animator.SetBool("DoorState", m_doorState);
+        if (m_animator == null)
+            Debug.Log($"{m_animator} is not found!");
+        else
+            Debug.Log($"{m_animator} has been found!");
+
+            m_animator.SetBool("DoorState", m_doorState);
     }
 }
