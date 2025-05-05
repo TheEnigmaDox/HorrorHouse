@@ -1,4 +1,6 @@
 
+using System.Collections;
+using System.Reflection;
 using System.Threading;
 using TMPro;
 using UnityEngine;
@@ -6,10 +8,34 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    private int m_puzzlesComplete = 0;
+
+    private bool m_mouseControl;
+    public bool MouseControl
+    {
+        get { return m_mouseControl; }
+    }
+
     private float m_gameTimer = 600;
+
+    public static GameManager GM_Instance;
 
     [SerializeField]
     TMP_Text m_timerText;
+
+    public int PuzzlesCompleted
+    {
+        get { return m_puzzlesComplete; }
+        set { m_puzzlesComplete = value; }
+    }
+
+    private void Awake()
+    {
+        if (GM_Instance == null)
+            GM_Instance = this;
+        else if (GM_Instance != this)
+            Destroy(this);
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -22,6 +48,31 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        switch (SceneManager.GetActiveScene().name)
+        {
+            case "TitleScreen":
+                UpdateTitleScreen();
+                break;
+            case "GameScreen":
+                UpdateGameScreen();
+                break;
+        }
+
+        Debug.Log($"Puzzles Complete : {m_puzzlesComplete}");
+    }
+
+    private void UpdateTitleScreen()
+    {
+        m_mouseControl = false;
+    }
+
+    private void UpdateGameScreen()
+    {
+        m_mouseControl = true;
+
+        if (m_timerText == null)
+            m_timerText = GameObject.FindGameObjectWithTag("Timer").GetComponent<TMP_Text>();
+
         m_gameTimer -= Time.deltaTime;
 
         int minutes = Mathf.FloorToInt(m_gameTimer / 60f);
@@ -43,11 +94,6 @@ public class GameManager : MonoBehaviour
         else if (Input.GetKeyDown("escape"))
         {
             Cursor.lockState = CursorLockMode.None;
-        }
-
-        if (Input.GetButtonDown("Jump"))
-        {
-            SceneManager.LoadScene(1);
         }
     }
 }

@@ -9,6 +9,7 @@ TagManager:
   - LightSwitch
   - MainBedroomFan
   - Baby
+  - Timer
   layers:
   - Default
   - TransparentFX

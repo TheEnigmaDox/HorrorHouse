@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour
 {
@@ -9,6 +11,12 @@ public class UIManager : MonoBehaviour
     private float m_currentAlpha = 0f;
     [SerializeField]
     private TMP_Text m_hintText;
+
+    public TMP_Text HintText
+    {
+        get { return m_hintText; }
+        set { m_hintText = value; }
+    } 
 
     // Start is called before the first frame update
     void Start()
@@ -19,29 +27,34 @@ public class UIManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //if (m_playerBathroomMessage)
-        //{
-        //    if(m_currentAlpha < 255)
-        //    {
-        //        m_currentAlpha += m_alphaShift; 
-        //    }
-        //}
-        //else
-        //{
-        //    if(m_currentAlpha >= 0)
-        //    {
-        //        m_currentAlpha -= m_alphaShift;
-        //    }
-        //}
+        switch (SceneManager.GetActiveScene().name)
+        {
+            case "TitleScreen":
+                //UpdateTitleScreen();
+                break;
+            case "GameScreen":
+                UpdateGameScreen();
+                break;
+        }
 
-        //m_hintText.GetComponent<TextMeshPro>().color = new Color(255, 0, 0, m_alphaShift);
+        
+    }
 
+    //private void UpdateTitleScreen()
+    //{
+
+    //}
+
+    private void UpdateGameScreen()
+    {
         m_currentAlpha = Mathf.Clamp(m_currentAlpha - m_alphaShift, 0, 1);
         m_hintText.color = new Color(1, 0, 0, m_currentAlpha);
     }
 
     public void SetHint(string hintText)
     {
+        Debug.Log($"Hint Text : {hintText}");
+
         if (hintText != m_hintText.text)
         {
             m_hintText.text = hintText;
@@ -52,5 +65,16 @@ public class UIManager : MonoBehaviour
             m_currentAlpha = Mathf.Clamp(m_currentAlpha + m_alphaShift, 0, 1);
         }
         m_hintText.color = new Color(1, 0, 0, m_currentAlpha);
+    }
+
+    public void PlayGame()
+    {
+        SceneManager.LoadScene("GameScreen");
+    }
+
+    public void ExitGame()
+    {
+        Application.Quit();
+        Debug.Log("I QUIT!");
     }
 }

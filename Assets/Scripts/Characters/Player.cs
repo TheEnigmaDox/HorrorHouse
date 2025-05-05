@@ -6,6 +6,9 @@ using UnityEngine.UI;
 
 public class Player : Character
 {
+    private bool m_isHoldingDoll = false;
+    private bool m_mouseControl = false;
+
     private int m_sanity = 100;
 
     [SerializeField]
@@ -17,20 +20,32 @@ public class Player : Character
     [SerializeField]
     private Slider m_sanityBar;
 
+    [SerializeField]
+    private Transform m_handPoint;
+
+    public bool MouseControl
+    {
+        get { return m_mouseControl; }
+        set { m_mouseControl = value; }
+    }
+
     private void Start()
     {
         m_characterController = GetComponent<CharacterController>();
         m_animator = GetComponent<Animator>();
         m_currentSpeed = m_walkSpeed;
 
-        m_sanityBar.maxValue = m_sanity;
+        if(m_sanityBar != null)
+            m_sanityBar.maxValue = m_sanity;
     }
 
     private void Update()
     {
-        m_sanityBar.value = m_sanity;
+        if (m_sanityBar != null)
+            m_sanityBar.value = m_sanity;
 
-        MoveCharacter(m_viewPoint);
+        if (GameManager.GM_Instance.MouseControl)
+            MoveCharacter(m_viewPoint);
 
         m_animator.SetBool("IsMoving", m_isMoving);
 
@@ -39,14 +54,12 @@ public class Player : Character
 
         if (Input.GetMouseButtonDown(0))
         {
-            Debug.DrawLine(ray.origin, ray.direction, Color.red);
-
             if (Physics.Raycast(ray, out RaycastHit hit, 2))
             {
                 debugSphere.transform.position = hit.point;
 
                 Debug.Log("We are looking at : " + hit.collider.gameObject.name);
-                
+
                 if (hit.collider.gameObject.GetComponent<DoorController>())
                 {
                     DoorController doorController = hit.collider.gameObject.GetComponent<DoorController>();
@@ -70,6 +83,32 @@ public class Player : Character
                     Keyboard keyboard = hit.collider.gameObject.GetComponent<Keyboard>();
 
                     keyboard.m_displayMessage = !keyboard.m_displayMessage;
+                }
+                else if (hit.collider.gameObject.GetComponent<Radio>())
+                {
+                    Radio radio = hit.collider.gameObject.GetComponent<Radio>();
+
+                    radio.TurnRadioOff();
+                }
+                else if (hit.collider.gameObject.GetComponent<Dolls>())
+                {
+                    //Debug.Log("Found the doll!");
+
+                    Dolls doll = hit.collider.gameObject.GetComponent<Dolls>();
+
+                    doll.SetTransform(m_handPoint, true);
+                    m_isHoldingDoll = true;
+                }
+                else if (hit.collider.gameObject.GetComponent<DollCircle>())
+                {
+                    DollCircle dollCircle = hit.collider.gameObject.GetComponent<DollCircle>();
+
+                    for(int i = 0; i < dollCircle.CirclePositions.Count; i++)
+                    {
+                        Dolls doll = this.GetComponentInChildren<Dolls>();
+
+                        doll.SetTransform(dollCircle.CirclePositions[i], false);
+                    }
                 }
             } 
         }

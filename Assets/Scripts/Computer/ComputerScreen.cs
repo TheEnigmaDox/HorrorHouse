@@ -35,8 +35,6 @@ public class ComputerScreen : MonoBehaviour
     {
         if (m_isOn && currLength < m_message.Length - 1)
         {
-            
-
             if(m_typeTime <= 0)
             {
                 currLength++;

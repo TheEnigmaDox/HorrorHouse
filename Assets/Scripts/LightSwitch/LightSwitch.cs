@@ -35,7 +35,8 @@ public class LightSwitch : MonoBehaviour
             {
                 MainRoomLight mainLight = m_bigLight[i].GetComponent<MainRoomLight>();
 
-                mainLight.SwitchOn(); 
+                mainLight.SwitchOn();
+                mainLight.IsOn = m_isOn;
             }
         }
         else
@@ -45,6 +46,7 @@ public class LightSwitch : MonoBehaviour
                 MainRoomLight mainLight = m_bigLight[i].GetComponent<MainRoomLight>();
 
                 mainLight.SwitchOff();
+                mainLight.IsOn = m_isOn;
             }
         }
     }

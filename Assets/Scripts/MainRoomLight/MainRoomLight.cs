@@ -5,12 +5,20 @@ using UnityEngine.Experimental.GlobalIllumination;
 
 public class MainRoomLight : MonoBehaviour
 {
+    private bool m_isOn = false;
+
     [SerializeField]
     GameObject m_mainLight;
 
     float m_rotSpeed = 5f;
 
     float m_currRot;
+
+    public bool IsOn
+    {
+        get { return m_isOn; }
+        set { m_isOn = value; }
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -21,12 +29,18 @@ public class MainRoomLight : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(this.gameObject.tag == "MainBedroomFan")
+        if (m_isOn)
         {
-            m_currRot += m_rotSpeed;
+            if (this.gameObject.activeInHierarchy)
+            {
+                if (this.gameObject.CompareTag("MainBedroomFan"))
+                {
+                    m_currRot += m_rotSpeed;
+                }
+
+                transform.rotation = Quaternion.Euler(transform.rotation.x, m_currRot, transform.rotation.z);
+            } 
         }
-        
-        transform.rotation = Quaternion.Euler(transform.rotation.x, m_currRot, transform.rotation.z);
     }
 
     public void SwitchOff()

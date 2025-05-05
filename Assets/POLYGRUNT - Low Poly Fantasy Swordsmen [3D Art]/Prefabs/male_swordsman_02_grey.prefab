@@ -2158,6 +2158,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_viewPoint: {fileID: 2142889393647980039}
   debugSphere: {fileID: 0}
+  m_sanityBar: {fileID: 0}
 --- !u!143 &1584105139643542809
 CharacterController:
   m_ObjectHideFlags: 0
