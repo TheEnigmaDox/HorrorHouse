@@ -3,21 +3,25 @@ using System.Collections.Generic;
 using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.AI;
 
-public class BabyScript : MonoBehaviour
+public class KillerScript : MonoBehaviour
 {
     private int m_sanityDrop = 10;
 
     private float m_alphaShift = 0.1f;
     private float m_moveSpeed = 2f;
     private float m_activeTime;
-    private float m_maxActiveTime = 10f;
+    private float m_maxActiveTime = 6f;
 
     [SerializeField]
     private Transform m_player;
 
     [SerializeField]
-    Material m_babyMat;
+    Material m_killerMat;
+
+    [SerializeField]
+    KillerTrigger m_trigger;
 
     // Start is called before the first frame update
     void Start()
@@ -38,7 +42,7 @@ public class BabyScript : MonoBehaviour
             m_alphaShift += 1f * Time.deltaTime;
         }
 
-        m_babyMat.color = new Color(m_babyMat.color.r, m_babyMat.color.g, m_babyMat.color.b, m_alphaShift);
+        m_killerMat.color = new Color(m_killerMat.color.r, m_killerMat.color.g, m_killerMat.color.b, m_alphaShift);
 
         if(m_activeTime <= 0)
         {
@@ -55,9 +59,7 @@ public class BabyScript : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             other.GetComponent<Player>().ReduceSanity(m_sanityDrop);
-
-            var trigger = FindObjectOfType(typeof(BabyTrigger));
-            trigger.GetComponent<BabyTrigger>().BabyCount--;
+            GameManager.GM_Instance.KillerCount--;
             Destroy(this.gameObject);
         }
     }

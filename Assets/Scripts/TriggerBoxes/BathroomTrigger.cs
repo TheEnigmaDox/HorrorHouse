@@ -37,6 +37,9 @@ public class BathroomTrigger : MonoBehaviour
                     else
                         m_uiManager.SetHint("Return her to her happy place...");
                     break;
+                case "KitchenTrigger":
+                    m_uiManager.SetHint("The kitchen was her favourite room in the house...");
+                    break;
             }
         }
     }

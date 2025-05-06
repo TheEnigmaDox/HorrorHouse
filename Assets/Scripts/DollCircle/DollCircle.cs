@@ -4,37 +4,47 @@ using UnityEngine;
 
 public class DollCircle : MonoBehaviour
 {
+    private int m_dollsPlaced = 0;
+
     private List<bool> m_posFilled = new List<bool>();
 
     [SerializeField]
-    List<Transform> m_circlePositions = new List<Transform>(); 
+    List<Transform> m_circlePositions = new List<Transform>();
+
+    [SerializeField]
+    GameObject m_doorKeys;
+    
 
     public List<Transform> CirclePositions
     {
         get { return m_circlePositions; }
     }
 
-    public List<bool> PosFilled
+    public int DollsPlaced
     {
-        get { return m_posFilled; }
-        set { m_posFilled = value; }
+        get { return m_dollsPlaced; }
+        set { m_dollsPlaced = value; }
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        for (int i = 0; i < 4; i++)
-        {
-            m_posFilled.Add(false);
-            m_posFilled.Add(false);
-            m_posFilled.Add(false);
-            m_posFilled.Add(false);
-        }
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        Debug.Log($"{m_dollsPlaced}");
+
+        if(m_dollsPlaced == 4)
+        {
+            GameObject keys = Instantiate(m_doorKeys, this.transform.parent.position, Quaternion.identity);
+            keys.transform.parent = this.transform;
+            keys.transform.localPosition = new Vector3(4.5f, 2, 4.5f);
+            keys.transform.localRotation = Quaternion.identity;
+            m_dollsPlaced++;
+
+        }
     }
 }

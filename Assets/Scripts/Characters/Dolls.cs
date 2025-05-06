@@ -21,10 +21,7 @@ public class Dolls : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //if (m_pickedUp)
-        //{
-        //    transform.SetPositionAndRotation(m_transform.position, m_transform.localRotation);
-        //}
+        
     }
 
     public void SetTransform(Transform targetTransform, bool isPickedUp)
@@ -33,5 +30,8 @@ public class Dolls : MonoBehaviour
         transform.localPosition = Vector3.zero;
         transform.localRotation = Quaternion.identity;
         m_pickedUp = isPickedUp;
+
+        if(this.CompareTag("Keys"))
+            GameManager.GM_Instance.HasKeys = true;
     }
 }

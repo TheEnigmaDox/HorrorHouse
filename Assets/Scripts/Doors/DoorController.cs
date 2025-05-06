@@ -24,13 +24,8 @@ public class DoorController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //if (m_animator == null)
-        //    Debug.Log($"{m_animator} is not found!");
-        //else
-        //    Debug.Log($"{m_animator} has been found!");
+        Debug.Log("DoorState : " + m_doorState);
 
-        //Debug.Log("DoorState : " + m_doorState);
-
-            m_animator.SetBool("DoorState", m_doorState);
+        m_animator.SetBool("DoorState", m_doorState);
     }
 }

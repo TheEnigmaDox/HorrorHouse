@@ -8,6 +8,10 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    private bool m_hasKeys = false;
+
+    private int m_killerCount = 0;
+
     private int m_puzzlesComplete = 0;
 
     private bool m_mouseControl;
@@ -16,12 +20,24 @@ public class GameManager : MonoBehaviour
         get { return m_mouseControl; }
     }
 
+    public bool HasKeys
+    {
+        get { return m_hasKeys; }
+        set { m_hasKeys = value; }
+    }
+
     private float m_gameTimer = 600;
 
     public static GameManager GM_Instance;
 
     [SerializeField]
     TMP_Text m_timerText;
+
+    public int KillerCount
+    {
+        get { return m_killerCount; }
+        set { m_killerCount = value; }
+    }
 
     public int PuzzlesCompleted
     {
@@ -56,14 +72,25 @@ public class GameManager : MonoBehaviour
             case "GameScreen":
                 UpdateGameScreen();
                 break;
+            case "GameOver":
+                UpdateGameOver();
+                break;
         }
 
-        Debug.Log($"Puzzles Complete : {m_puzzlesComplete}");
+        if (m_killerCount < 0)
+            m_killerCount = 0;
+
+        Debug.Log(m_hasKeys);
+
+        //Debug.Log($"Current Killer Count : {m_killerCount}");
+        //Debug.Log($"Puzzles Complete : {m_puzzlesComplete}");
     }
 
     private void UpdateTitleScreen()
     {
         m_mouseControl = false;
+
+        Cursor.lockState = CursorLockMode.None;
     }
 
     private void UpdateGameScreen()
@@ -95,5 +122,12 @@ public class GameManager : MonoBehaviour
         {
             Cursor.lockState = CursorLockMode.None;
         }
+    }
+
+    private void UpdateGameOver()
+    {
+        m_mouseControl = false;
+
+        Cursor.lockState = CursorLockMode.None;
     }
 }

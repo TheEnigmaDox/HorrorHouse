@@ -6,6 +6,8 @@ using UnityEngine.UI;
 
 public class Player : Character
 {
+    private int m_posIndex = 0;
+
     private bool m_isHoldingDoll = false;
     private bool m_mouseControl = false;
 
@@ -58,7 +60,7 @@ public class Player : Character
             {
                 debugSphere.transform.position = hit.point;
 
-                Debug.Log("We are looking at : " + hit.collider.gameObject.name);
+                //Debug.Log("We are looking at : " + hit.collider.gameObject.name);
 
                 if (hit.collider.gameObject.GetComponent<DoorController>())
                 {
@@ -97,7 +99,6 @@ public class Player : Character
                     Dolls doll = hit.collider.gameObject.GetComponent<Dolls>();
 
                     doll.SetTransform(m_handPoint, true);
-                    m_isHoldingDoll = true;
                 }
                 else if (hit.collider.gameObject.GetComponent<DollCircle>())
                 {
@@ -105,12 +106,13 @@ public class Player : Character
 
                     for(int i = 0; i < dollCircle.CirclePositions.Count; i++)
                     {
-                        if (!dollCircle.PosFilled[i])
+                        if (dollCircle.CirclePositions[m_posIndex] != null)
                         {
                             Dolls doll = this.GetComponentInChildren<Dolls>();
 
-                            doll.SetTransform(dollCircle.CirclePositions[i], false);
-                            dollCircle.PosFilled[i] = true;
+                            doll.SetTransform(dollCircle.CirclePositions[m_posIndex], false);
+                            m_posIndex++;
+                            dollCircle.DollsPlaced++;
                         }
                     }
                 }
