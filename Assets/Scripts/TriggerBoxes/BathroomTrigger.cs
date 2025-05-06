@@ -10,6 +10,9 @@ public class BathroomTrigger : MonoBehaviour
     [SerializeField]
     Radio m_radio;
 
+    [SerializeField]
+    Dolls doll;
+
     private void OnTriggerStay(Collider other)
     {
         if (other.CompareTag("Player"))
@@ -17,7 +20,7 @@ public class BathroomTrigger : MonoBehaviour
             switch (this.name)
             {
                 case "BathroomTrigger":
-                    if (m_radio.IsRadioOn)
+                    if (!m_radio.IsRadioOn)
                         m_uiManager.SetHint("She was never a fan of classical music.");
                     else
                         m_uiManager.SetHint("Alas she sank into the silence...");
@@ -27,6 +30,12 @@ public class BathroomTrigger : MonoBehaviour
                     break;
                 case "HallTrigger":
                     m_uiManager.SetHint("Welcome to where it all ended...");
+                    break;
+                case "HallCupboardTrigger":
+                    if (!doll.IsPickedUp)
+                        m_uiManager.SetHint("This became her most use hiding place...");
+                    else
+                        m_uiManager.SetHint("Return her to her happy place...");
                     break;
             }
         }

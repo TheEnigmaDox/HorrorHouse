@@ -23,7 +23,13 @@ public class DollCircle : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        for (int i = 0; i < 4; i++)
+        {
+            m_posFilled.Add(false);
+            m_posFilled.Add(false);
+            m_posFilled.Add(false);
+            m_posFilled.Add(false);
+        }
     }
 
     // Update is called once per frame

@@ -8,6 +8,10 @@ public class Dolls : MonoBehaviour
 
     private Transform m_transform;
 
+    public bool IsPickedUp
+    {
+        get { return m_pickedUp; }
+    }
     // Start is called before the first frame update
     void Start()
     {
@@ -17,16 +21,17 @@ public class Dolls : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (m_pickedUp)
-        {
-            transform.SetPositionAndRotation(m_transform.position, m_transform.localRotation);
-        }
+        //if (m_pickedUp)
+        //{
+        //    transform.SetPositionAndRotation(m_transform.position, m_transform.localRotation);
+        //}
     }
 
     public void SetTransform(Transform targetTransform, bool isPickedUp)
     {
-        m_transform = targetTransform;
-        //transform.SetParent(targetTransform);
+        transform.SetParent(targetTransform);
+        transform.localPosition = Vector3.zero;
+        transform.localRotation = Quaternion.identity;
         m_pickedUp = isPickedUp;
     }
 }

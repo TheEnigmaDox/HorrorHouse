@@ -3357,6 +3357,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: RainLight
       objectReference: {fileID: 0}
+    - target: {fileID: 6996111763514889973, guid: 91611f790e9db7541b0a3e26315d2f21, type: 3}
+      propertyPath: InitialModule.startSpeed.scalar
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6996111763514889973, guid: 91611f790e9db7541b0a3e26315d2f21, type: 3}
+      propertyPath: InitialModule.gravityModifier.scalar
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6996111763514889973, guid: 91611f790e9db7541b0a3e26315d2f21, type: 3}
+      propertyPath: InitialModule.startSpeed.minMaxState
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7727879275323186431, guid: 91611f790e9db7541b0a3e26315d2f21, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -3775,6 +3787,18 @@ PrefabInstance:
     - target: {fileID: 5438680644221494931, guid: 90b11dadcb9426343a5b35e9ecabf547, type: 3}
       propertyPath: m_Name
       value: RainDark
+      objectReference: {fileID: 0}
+    - target: {fileID: 6840474993737425779, guid: 90b11dadcb9426343a5b35e9ecabf547, type: 3}
+      propertyPath: InitialModule.startSpeed.scalar
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6840474993737425779, guid: 90b11dadcb9426343a5b35e9ecabf547, type: 3}
+      propertyPath: InitialModule.gravityModifier.scalar
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6840474993737425779, guid: 90b11dadcb9426343a5b35e9ecabf547, type: 3}
+      propertyPath: InitialModule.startSpeed.minMaxState
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7701327497661915025, guid: 90b11dadcb9426343a5b35e9ecabf547, type: 3}
       propertyPath: m_LocalPosition.x

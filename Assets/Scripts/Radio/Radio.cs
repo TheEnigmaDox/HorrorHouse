@@ -8,9 +8,16 @@ public class Radio : MonoBehaviour
 
     private AudioSource m_radioAudio;
 
+    [SerializeField]
+    GameObject m_doll;
+
+    [SerializeField]
+    Transform m_spawnPos;
+
     public bool IsRadioOn
     {
         get { return m_radioIsOn; }
+        set { m_radioIsOn = value; }
     }
 
     private void Start()
@@ -21,8 +28,10 @@ public class Radio : MonoBehaviour
 
     public void TurnRadioOff()
     {
+        if(m_radioIsOn)
+            Instantiate(m_doll, m_spawnPos.position, m_spawnPos.rotation);
+
         m_radioIsOn = false;
-        GameManager.GM_Instance.PuzzlesCompleted++;
         m_radioAudio.Stop();
     }
 }

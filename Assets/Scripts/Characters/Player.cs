@@ -105,9 +105,13 @@ public class Player : Character
 
                     for(int i = 0; i < dollCircle.CirclePositions.Count; i++)
                     {
-                        Dolls doll = this.GetComponentInChildren<Dolls>();
+                        if (!dollCircle.PosFilled[i])
+                        {
+                            Dolls doll = this.GetComponentInChildren<Dolls>();
 
-                        doll.SetTransform(dollCircle.CirclePositions[i], false);
+                            doll.SetTransform(dollCircle.CirclePositions[i], false);
+                            dollCircle.PosFilled[i] = true;
+                        }
                     }
                 }
             } 
