@@ -1,7 +1,4 @@
 
-using System.Collections;
-using System.Reflection;
-using System.Threading;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -26,8 +23,15 @@ public class GameManager : MonoBehaviour
         set { m_hasKeys = value; }
     }
 
-    private float m_gameTimer = 600;
+    private float m_gameTimer = 60;
 
+    public float GameTimer
+    {
+        get { return m_gameTimer; }
+        set { m_gameTimer = value; }
+    }
+
+    Player m_player;
     public static GameManager GM_Instance;
 
     [SerializeField]
@@ -59,6 +63,8 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(this);
 
         Application.targetFrameRate = 60;
+
+        m_player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
     }
 
     // Update is called once per frame
@@ -82,7 +88,12 @@ public class GameManager : MonoBehaviour
 
         Debug.Log(m_hasKeys);
 
-        //Debug.Log($"Current Killer Count : {m_killerCount}");
+        if(m_player.Sanity <= 0)
+        {
+            SceneManager.LoadScene(2);
+        }
+
+        Debug.Log($"Current Killer Count : {m_killerCount}");
         //Debug.Log($"Puzzles Complete : {m_puzzlesComplete}");
     }
 
@@ -109,9 +120,9 @@ public class GameManager : MonoBehaviour
 
         m_timerText.text = "Time Left : " + gameTime;
 
-        if (m_gameTimer <= 0)
+        if (m_gameTimer < 0)
         {
-            SceneManager.LoadScene(1);
+            SceneManager.LoadScene(2);
         }
 
         if (Input.GetMouseButtonDown(0))

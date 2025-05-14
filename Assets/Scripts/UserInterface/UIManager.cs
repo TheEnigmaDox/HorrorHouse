@@ -69,6 +69,7 @@ public class UIManager : MonoBehaviour
 
     public void PlayGame()
     {
+        GameManager.GM_Instance.GameTimer = 600;
         SceneManager.LoadScene("GameScreen");
     }
 

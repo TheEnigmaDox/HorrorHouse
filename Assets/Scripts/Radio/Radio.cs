@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Radio : MonoBehaviour
+public class Radio : MonoBehaviour, IInteract
 {
     private bool m_radioIsOn = true;
 
@@ -29,6 +29,17 @@ public class Radio : MonoBehaviour
     public void TurnRadioOff()
     {
         if(m_radioIsOn)
+            Instantiate(m_doll, m_spawnPos.position, m_spawnPos.rotation);
+
+        m_radioIsOn = false;
+        m_radioAudio.Stop();
+    }
+
+    void IInteract.Interact()
+    {
+        m_radioIsOn = !m_radioIsOn;
+
+        if (m_radioIsOn)
             Instantiate(m_doll, m_spawnPos.position, m_spawnPos.rotation);
 
         m_radioIsOn = false;

@@ -203,6 +203,7 @@ GameObject:
   - component: {fileID: 3184514048389632557}
   - component: {fileID: 1588815591570115749}
   - component: {fileID: 8423525933295617215}
+  - component: {fileID: 3218516141057419837}
   m_Layer: 0
   m_Name: Killer2
   m_TagString: Killer
@@ -441,6 +442,28 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!195 &3218516141057419837
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1073971355109534}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!1 &1092710832768120
 GameObject:
   m_ObjectHideFlags: 0

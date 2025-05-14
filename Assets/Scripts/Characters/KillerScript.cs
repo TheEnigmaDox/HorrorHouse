@@ -10,9 +10,9 @@ public class KillerScript : MonoBehaviour
     private int m_sanityDrop = 10;
 
     private float m_alphaShift = 0.1f;
-    private float m_moveSpeed = 2f;
+    private float m_moveSpeed = 1f;
     private float m_activeTime;
-    private float m_maxActiveTime = 6f;
+    private float m_maxActiveTime = 4f;
 
     [SerializeField]
     private Transform m_player;
@@ -23,10 +23,13 @@ public class KillerScript : MonoBehaviour
     [SerializeField]
     KillerTrigger m_trigger;
 
+    NavMeshAgent m_navAgent;
+    
     // Start is called before the first frame update
     void Start()
     {
         m_player = GameObject.FindGameObjectWithTag("Player").transform;
+        m_navAgent = GetComponent<NavMeshAgent>();
         m_activeTime = m_maxActiveTime;
         transform.LookAt(m_player);
     }
@@ -44,12 +47,13 @@ public class KillerScript : MonoBehaviour
 
         m_killerMat.color = new Color(m_killerMat.color.r, m_killerMat.color.g, m_killerMat.color.b, m_alphaShift);
 
+        if(m_navAgent.destination != m_player.transform.position)
+            m_navAgent.destination = m_player.transform.position;
+
         if(m_activeTime <= 0)
         {
             Destroy(this.gameObject);
         }
-
-        transform.position = Vector3.MoveTowards(this.transform.position, m_player.transform.position, m_moveSpeed * Time.deltaTime);
 
         // Debug.Log($" Alpha shift : {m_alphaShift}");
     }
@@ -58,8 +62,8 @@ public class KillerScript : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            other.GetComponent<Player>().ReduceSanity(m_sanityDrop);
             GameManager.GM_Instance.KillerCount--;
+            other.GetComponent<Player>().ReduceSanity(m_sanityDrop);
             Destroy(this.gameObject);
         }
     }

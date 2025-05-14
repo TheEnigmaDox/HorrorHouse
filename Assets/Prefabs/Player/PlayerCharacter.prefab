@@ -235,6 +235,9 @@ MonoBehaviour:
   debugSphere: {fileID: 0}
   m_sanityBar: {fileID: 0}
   m_handPoint: {fileID: 8538592175767415498}
+  m_interactLayer:
+    serializedVersion: 2
+    m_Bits: 128
 --- !u!143 &8725072297232594891
 CharacterController:
   m_ObjectHideFlags: 0

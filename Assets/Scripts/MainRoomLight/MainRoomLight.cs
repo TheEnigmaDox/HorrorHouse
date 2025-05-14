@@ -39,23 +39,30 @@ public class MainRoomLight : MonoBehaviour
                 }
 
                 transform.rotation = Quaternion.Euler(transform.rotation.x, m_currRot, transform.rotation.z);
-            } 
+            }   
         }
+
+        m_mainLight.SetActive(m_isOn);
     }
 
-    public void SwitchOff()
+    public void LightSwitch(bool isOn)
     {
-        if(m_mainLight.activeSelf)
-        {
-            m_mainLight.SetActive(false);
-        }
+        m_isOn = isOn;
     }
 
-    public void SwitchOn()
-    {
-        if(!m_mainLight.activeSelf)
-        {
-            m_mainLight.SetActive(true);
-        }
-    }
+    //public void SwitchOff()
+    //{
+    //    if(m_mainLight.activeSelf)
+    //    {
+    //        m_mainLight.SetActive(false);
+    //    }
+    //}
+
+    //public void SwitchOn()
+    //{
+    //    if(!m_mainLight.activeSelf)
+    //    {
+    //        m_mainLight.SetActive(true);
+    //    }
+    //}
 }

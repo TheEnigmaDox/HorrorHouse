@@ -13,6 +13,12 @@ public class Player : Character
 
     private int m_sanity = 100;
 
+    public int Sanity
+    {
+        get { return m_sanity; }
+        set { m_sanity = value; }
+    }
+
     [SerializeField]
     private Transform m_viewPoint;
 
@@ -24,6 +30,9 @@ public class Player : Character
 
     [SerializeField]
     private Transform m_handPoint;
+
+    [SerializeField]
+    LayerMask m_interactLayer;
 
     public bool MouseControl
     {
@@ -56,66 +65,73 @@ public class Player : Character
 
         if (Input.GetMouseButtonDown(0))
         {
-            if (Physics.Raycast(ray, out RaycastHit hit, 2))
+            if (Physics.Raycast(ray, out RaycastHit hit, 2, m_interactLayer))
             {
                 debugSphere.transform.position = hit.point;
 
-                //Debug.Log("We are looking at : " + hit.collider.gameObject.name);
+                Debug.Log("We are looking at : " + hit.collider.gameObject.name);
 
-                if (hit.collider.gameObject.GetComponent<DoorController>())
+                IInteract interactable = hit.collider.GetComponent<IInteract>();
+
+                if (interactable != null)
                 {
-                    DoorController doorController = hit.collider.gameObject.GetComponent<DoorController>();
-
-                    doorController.DoorState = !doorController.DoorState;
+                    interactable.Interact();
                 }
-                else if (hit.collider.gameObject.GetComponent<LightSwitch>())
-                {
-                    LightSwitch lightSwitch = hit.collider.gameObject.GetComponent<LightSwitch>();
 
-                    lightSwitch.IsOn = !lightSwitch.IsOn;
-                }
-                else if (hit.collider.transform.Find("Directional Light"))
-                {
-                    GameObject light = hit.collider.transform.Find("Directional Light").gameObject;
+                //if (hit.collider.gameObject.GetComponent<DoorController>())
+                //{
+                //    DoorController doorController = hit.collider.gameObject.GetComponent<DoorController>();
 
-                    light.SetActive(!light.activeSelf);
-                }
-                else if (hit.collider.gameObject.GetComponent<Keyboard>())
-                {
-                    Keyboard keyboard = hit.collider.gameObject.GetComponent<Keyboard>();
+                //    doorController.DoorState = !doorController.DoorState;
+                //}
+                //else if (hit.collider.gameObject.GetComponent<LightSwitch>())
+                //{
+                //    LightSwitch lightSwitch = hit.collider.gameObject.GetComponent<LightSwitch>();
 
-                    keyboard.m_displayMessage = !keyboard.m_displayMessage;
-                }
-                else if (hit.collider.gameObject.GetComponent<Radio>())
-                {
-                    Radio radio = hit.collider.gameObject.GetComponent<Radio>();
+                //    lightSwitch.IsOn = !lightSwitch.IsOn;
+                //}
+                //else if (hit.collider.transform.Find("Directional Light"))
+                //{
+                //    GameObject light = hit.collider.transform.Find("Directional Light").gameObject;
 
-                    radio.TurnRadioOff();
-                }
-                else if (hit.collider.gameObject.GetComponent<Dolls>())
-                {
-                    //Debug.Log("Found the doll!");
+                //    light.SetActive(!light.activeSelf);
+                //}
+                //else if (hit.collider.gameObject.GetComponent<Keyboard>())
+                //{
+                //    Keyboard keyboard = hit.collider.gameObject.GetComponent<Keyboard>();
 
-                    Dolls doll = hit.collider.gameObject.GetComponent<Dolls>();
+                //    keyboard.m_displayMessage = !keyboard.m_displayMessage;
+                //}
+                //else if (hit.collider.gameObject.GetComponent<Radio>())
+                //{
+                //    Radio radio = hit.collider.gameObject.GetComponent<Radio>();
 
-                    doll.SetTransform(m_handPoint, true);
-                }
-                else if (hit.collider.gameObject.GetComponent<DollCircle>())
-                {
-                    DollCircle dollCircle = hit.collider.gameObject.GetComponent<DollCircle>();
+                //    radio.TurnRadioOff();
+                //}
+                //else if (hit.collider.gameObject.GetComponent<Dolls>())
+                //{
+                //    //Debug.Log("Found the doll!");
 
-                    for(int i = 0; i < dollCircle.CirclePositions.Count; i++)
-                    {
-                        if (dollCircle.CirclePositions[m_posIndex] != null)
-                        {
-                            Dolls doll = this.GetComponentInChildren<Dolls>();
+                //    Dolls doll = hit.collider.gameObject.GetComponent<Dolls>();
 
-                            doll.SetTransform(dollCircle.CirclePositions[m_posIndex], false);
-                            m_posIndex++;
-                            dollCircle.DollsPlaced++;
-                        }
-                    }
-                }
+                //    doll.SetTransform(m_handPoint, true);
+                //}
+                //else if (hit.collider.gameObject.GetComponent<DollCircle>())
+                //{
+                //    DollCircle dollCircle = hit.collider.gameObject.GetComponent<DollCircle>();
+
+                //    for(int i = 0; i < dollCircle.CirclePositions.Count; i++)
+                //    {
+                //        if (dollCircle.CirclePositions[m_posIndex] != null)
+                //        {
+                //            Dolls doll = this.GetComponentInChildren<Dolls>();
+
+                //            doll.SetTransform(dollCircle.CirclePositions[m_posIndex], false);
+                //            m_posIndex++;
+                //            dollCircle.DollsPlaced++;
+                //        }
+                //    }
+                //}
             } 
         }
     }
