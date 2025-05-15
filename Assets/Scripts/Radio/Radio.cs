@@ -4,7 +4,12 @@ using UnityEngine;
 
 public class Radio : MonoBehaviour, IInteract
 {
-    private bool m_radioIsOn = true;
+    private bool m_playerInteraction = false;
+
+    public bool PlayerInteraction
+    {
+        get { return m_playerInteraction; }
+    }
 
     private AudioSource m_radioAudio;
 
@@ -14,35 +19,37 @@ public class Radio : MonoBehaviour, IInteract
     [SerializeField]
     Transform m_spawnPos;
 
-    public bool IsRadioOn
-    {
-        get { return m_radioIsOn; }
-        set { m_radioIsOn = value; }
-    }
-
     private void Start()
     {
         m_radioAudio = GetComponent<AudioSource>();
-        m_radioAudio.Play();
     }
 
-    public void TurnRadioOff()
-    {
-        if(m_radioIsOn)
-            Instantiate(m_doll, m_spawnPos.position, m_spawnPos.rotation);
+    //public void TurnRadioOff()
+    //{
+    //    if(m_radioIsOn)
+    //        Instantiate(m_doll, m_spawnPos.position, m_spawnPos.rotation);
 
-        m_radioIsOn = false;
-        m_radioAudio.Stop();
+    //    m_radioIsOn = false;
+    //    m_radioAudio.Stop();
+    //}
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.CompareTag("Player"))
+        {
+            m_radioAudio.Play();
+        }  
     }
 
     void IInteract.Interact()
     {
-        m_radioIsOn = !m_radioIsOn;
+        m_playerInteraction = true;
 
-        if (m_radioIsOn)
-            Instantiate(m_doll, m_spawnPos.position, m_spawnPos.rotation);
+        if (m_playerInteraction)
+            m_doll.SetActive(true);
 
-        m_radioIsOn = false;
+        //Debug.Log($"{m_doll.name} : is Active");
+
         m_radioAudio.Stop();
     }
 }

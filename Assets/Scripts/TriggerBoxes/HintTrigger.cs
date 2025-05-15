@@ -1,9 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
-public class BathroomTrigger : MonoBehaviour
+public class HintTrigger : MonoBehaviour
 {
+    private bool m_hallHint = false;
+
     [SerializeField]
     private UIManager m_uiManager;
 
@@ -13,6 +16,20 @@ public class BathroomTrigger : MonoBehaviour
     [SerializeField]
     Dolls doll;
 
+    private void SetHallHint()
+    {
+        if (m_hallHint)
+        {
+            return;
+        }
+        else
+        {
+            m_hallHint = true;
+
+            m_uiManager.SetHint("Welcome to where it all ended...");
+        }
+    }
+
     private void OnTriggerStay(Collider other)
     {
         if (other.CompareTag("Player"))
@@ -20,7 +37,7 @@ public class BathroomTrigger : MonoBehaviour
             switch (this.name)
             {
                 case "BathroomTrigger":
-                    if (!m_radio.IsRadioOn)
+                    if (!m_radio.PlayerInteraction)
                         m_uiManager.SetHint("She was never a fan of classical music.");
                     else
                         m_uiManager.SetHint("Alas she sank into the silence...");
@@ -29,7 +46,7 @@ public class BathroomTrigger : MonoBehaviour
                     m_uiManager.SetHint("Now in the main bedroom.");
                     break;
                 case "HallTrigger":
-                    m_uiManager.SetHint("Welcome to where it all ended...");
+                    SetHallHint();
                     break;
                 case "HallCupboardTrigger":
                     if (!doll.IsPickedUp)

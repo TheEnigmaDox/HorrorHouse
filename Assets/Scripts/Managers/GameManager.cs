@@ -23,7 +23,7 @@ public class GameManager : MonoBehaviour
         set { m_hasKeys = value; }
     }
 
-    private float m_gameTimer = 60;
+    private float m_gameTimer = 600;
 
     public float GameTimer
     {
@@ -62,7 +62,7 @@ public class GameManager : MonoBehaviour
     {
         DontDestroyOnLoad(this);
 
-        Application.targetFrameRate = 60;
+        Application.targetFrameRate = 600;
 
         m_player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
     }

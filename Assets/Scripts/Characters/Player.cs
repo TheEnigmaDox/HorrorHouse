@@ -8,7 +8,6 @@ public class Player : Character
 {
     private int m_posIndex = 0;
 
-    private bool m_isHoldingDoll = false;
     private bool m_mouseControl = false;
 
     private int m_sanity = 100;
@@ -28,8 +27,7 @@ public class Player : Character
     [SerializeField]
     private Slider m_sanityBar;
 
-    [SerializeField]
-    private Transform m_handPoint;
+
 
     [SerializeField]
     LayerMask m_interactLayer;
@@ -69,7 +67,7 @@ public class Player : Character
             {
                 debugSphere.transform.position = hit.point;
 
-                Debug.Log("We are looking at : " + hit.collider.gameObject.name);
+                //Debug.Log("We are looking at : " + hit.collider.gameObject.name);
 
                 IInteract interactable = hit.collider.GetComponent<IInteract>();
 
@@ -77,6 +75,24 @@ public class Player : Character
                 {
                     interactable.Interact();
                 }
+
+                DollCircle dollCircle = hit.collider.gameObject.GetComponent<DollCircle>();
+
+                if (dollCircle != null)
+                {
+                    for (int i = 0; i < dollCircle.CirclePositions.Count; i++)
+                    {
+                        if (dollCircle.CirclePositions[m_posIndex] != null)
+                        {
+                            Dolls doll = this.GetComponentInChildren<Dolls>();
+
+                            doll.SetTransform(dollCircle.CirclePositions[m_posIndex], false);
+                            m_posIndex++;
+                            dollCircle.DollsPlaced++;
+                        }
+                    } 
+                }
+
 
                 //if (hit.collider.gameObject.GetComponent<DoorController>())
                 //{
@@ -132,7 +148,7 @@ public class Player : Character
                 //        }
                 //    }
                 //}
-            } 
+            }
         }
     }
 

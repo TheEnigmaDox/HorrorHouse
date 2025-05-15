@@ -13,13 +13,13 @@ GameObject:
   - component: {fileID: 7525275498344206277}
   - component: {fileID: 1073784847624285401}
   - component: {fileID: 2781072537090131533}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Doll02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2132215015635980584
 Transform:
   m_ObjectHideFlags: 0
@@ -120,6 +120,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95f4985b2fc95d64fb19de0c8ac1424b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_handPoint: {fileID: 0}
 --- !u!1 &7190532569684913794
 GameObject:
   m_ObjectHideFlags: 0
@@ -131,7 +132,7 @@ GameObject:
   - component: {fileID: 962596842962961202}
   - component: {fileID: 3091571012846340756}
   - component: {fileID: 86740995325118654}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -10,7 +10,6 @@ public class KillerScript : MonoBehaviour
     private int m_sanityDrop = 10;
 
     private float m_alphaShift = 0.1f;
-    private float m_moveSpeed = 1f;
     private float m_activeTime;
     private float m_maxActiveTime = 4f;
 
@@ -52,6 +51,7 @@ public class KillerScript : MonoBehaviour
 
         if(m_activeTime <= 0)
         {
+            GameManager.GM_Instance.KillerCount--;
             Destroy(this.gameObject);
         }
 

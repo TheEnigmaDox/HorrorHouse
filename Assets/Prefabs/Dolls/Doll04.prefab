@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4578374039911930498}
   - component: {fileID: 5689324002628473540}
   - component: {fileID: 1047778937947908157}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -96,7 +96,7 @@ GameObject:
   - component: {fileID: 2770914200266752709}
   - component: {fileID: 2789576555715131314}
   - component: {fileID: 8774702969893391947}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Doll04
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -203,3 +203,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95f4985b2fc95d64fb19de0c8ac1424b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_handPoint: {fileID: 0}

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2480962806676940192}
   - component: {fileID: 5630800985840436954}
   - component: {fileID: 7890331060359875872}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: keyring
   m_TagString: Keys
   m_Icon: {fileID: 0}

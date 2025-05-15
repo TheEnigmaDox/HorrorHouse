@@ -2,11 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Dolls : MonoBehaviour
+public class Dolls : MonoBehaviour, IInteract
 {
     private bool m_pickedUp = false;
 
-    private Transform m_transform;
+    [SerializeField]
+    private Transform m_handPoint;
 
     public bool IsPickedUp
     {
@@ -33,5 +34,10 @@ public class Dolls : MonoBehaviour
 
         if(this.CompareTag("Keys"))
             GameManager.GM_Instance.HasKeys = true;
+    }
+
+    void IInteract.Interact()
+    {
+        SetTransform(m_handPoint, true);
     }
 }

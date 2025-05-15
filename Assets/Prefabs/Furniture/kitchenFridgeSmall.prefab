@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8632473434539413396}
   - component: {fileID: 8967855144156410124}
   - component: {fileID: 8818666688791808278}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: doorFridge
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -97,7 +97,7 @@ GameObject:
   - component: {fileID: 5276847526920481}
   - component: {fileID: 809776570988810875}
   - component: {fileID: 2937923901069508424}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: kitchenFridgeSmall
   m_TagString: Untagged
   m_Icon: {fileID: 0}

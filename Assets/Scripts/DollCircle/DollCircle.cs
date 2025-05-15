@@ -13,7 +13,8 @@ public class DollCircle : MonoBehaviour
 
     [SerializeField]
     GameObject m_doorKeys;
-    
+    [SerializeField]
+    GameObject m_sceneChanger;
 
     public List<Transform> CirclePositions
     {
@@ -35,7 +36,7 @@ public class DollCircle : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log($"{m_dollsPlaced}");
+        Debug.Log($"Dolls placed : {m_dollsPlaced}");
 
         if(m_dollsPlaced == 4)
         {
@@ -44,7 +45,7 @@ public class DollCircle : MonoBehaviour
             keys.transform.localPosition = new Vector3(4.5f, 2, 4.5f);
             keys.transform.localRotation = Quaternion.identity;
             m_dollsPlaced++;
-
+            m_sceneChanger.SetActive(true);
         }
     }
 }

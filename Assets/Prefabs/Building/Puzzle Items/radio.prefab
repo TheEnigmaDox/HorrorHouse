@@ -14,7 +14,8 @@ GameObject:
   - component: {fileID: 864622929259275510}
   - component: {fileID: 7754093606111975892}
   - component: {fileID: 3957371361735144950}
-  m_Layer: 0
+  - component: {fileID: 4569447169401939216}
+  m_Layer: 7
   m_Name: radio
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -29,7 +30,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1900081471464014389}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0.19174485, z: -0, w: 0.9814449}
+  m_LocalRotation: {x: 0, y: -0.19174258, z: 0, w: 0.98144525}
   m_LocalPosition: {x: -2.79, y: 0.424, z: -1.557}
   m_LocalScale: {x: 0.2001775, y: 0.2001775, z: 0.2001775}
   m_ConstrainProportionsScale: 1
@@ -121,8 +122,8 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 26466a721581ef34fa0bd9313b65e78d, type: 3}
-  m_PlayOnAwake: 1
-  m_Volume: 0.1
+  m_PlayOnAwake: 0
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -218,3 +219,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee944e03c9dfa4a4dbf9615e11e198d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_doll: {fileID: 0}
+  m_spawnPos: {fileID: 0}
+--- !u!65 &4569447169401939216
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1900081471464014389}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 3.8669229, y: 3.461501, z: 0.5066306}
+  m_Center: {x: -6.127043, y: 0.21564366, z: 1.7931508}
