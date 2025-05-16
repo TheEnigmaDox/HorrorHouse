@@ -5,8 +5,6 @@ using UnityEngine;
 
 public class HintTrigger : MonoBehaviour
 {
-    private bool m_hallHint = false;
-
     [SerializeField]
     private UIManager m_uiManager;
 
@@ -18,16 +16,7 @@ public class HintTrigger : MonoBehaviour
 
     private void SetHallHint()
     {
-        if (m_hallHint)
-        {
-            return;
-        }
-        else
-        {
-            m_hallHint = true;
-
-            m_uiManager.SetHint("Welcome to where it all ended...");
-        }
+        
     }
 
     private void OnTriggerStay(Collider other)
@@ -46,7 +35,7 @@ public class HintTrigger : MonoBehaviour
                     m_uiManager.SetHint("Now in the main bedroom.");
                     break;
                 case "HallTrigger":
-                    SetHallHint();
+                    m_uiManager.SetHint("Welcome to where it all ended...");
                     break;
                 case "HallCupboardTrigger":
                     if (!doll.IsPickedUp)

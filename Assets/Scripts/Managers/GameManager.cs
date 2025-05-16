@@ -31,7 +31,10 @@ public class GameManager : MonoBehaviour
         set { m_gameTimer = value; }
     }
 
-    Player m_player;
+
+    [SerializeField]
+    GameObject m_frontDoor;
+    private Player m_player;
     public static GameManager GM_Instance;
 
     [SerializeField]
@@ -41,12 +44,6 @@ public class GameManager : MonoBehaviour
     {
         get { return m_killerCount; }
         set { m_killerCount = value; }
-    }
-
-    public int PuzzlesCompleted
-    {
-        get { return m_puzzlesComplete; }
-        set { m_puzzlesComplete = value; }
     }
 
     private void Awake()
@@ -87,6 +84,9 @@ public class GameManager : MonoBehaviour
             m_killerCount = 0;
 
         Debug.Log(m_hasKeys);
+
+        if (m_hasKeys)
+            m_frontDoor.GetComponent<DoorController>().IsLocked = false;
 
         if(m_player.Sanity <= 0)
         {

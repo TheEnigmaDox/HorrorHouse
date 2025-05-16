@@ -40,11 +40,8 @@ public class DollCircle : MonoBehaviour
 
         if(m_dollsPlaced == 4)
         {
-            GameObject keys = Instantiate(m_doorKeys, this.transform.parent.position, Quaternion.identity);
-            keys.transform.parent = this.transform;
-            keys.transform.localPosition = new Vector3(4.5f, 2, 4.5f);
-            keys.transform.localRotation = Quaternion.identity;
-            m_dollsPlaced++;
+
+            m_doorKeys.SetActive(true);
             m_sceneChanger.SetActive(true);
         }
     }

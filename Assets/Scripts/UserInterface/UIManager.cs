@@ -54,16 +54,8 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    //private void UpdateTitleScreen()
-    //{
-
-    //}
-
     private void UpdateGameScreen()
     {
-        m_currentAlpha = Mathf.Clamp(m_currentAlpha - m_alphaShift, 0, 1);
-        m_hintText.color = new Color(1, 0, 0, m_currentAlpha);
-
         Ray ray = Camera.main.ScreenPointToRay(new Vector2(960, 540));
         ray.origin = Camera.main.transform.position;
 
@@ -92,8 +84,8 @@ public class UIManager : MonoBehaviour
         else
         {
             m_currentAlpha = Mathf.Clamp(m_currentAlpha + m_alphaShift, 0, 1);
+            m_hintText.color = new Color(1, 0, 0, m_currentAlpha);
         }
-        m_hintText.color = new Color(1, 0, 0, m_currentAlpha);
     }
 
     public void PlayGame()

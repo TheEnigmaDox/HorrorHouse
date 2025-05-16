@@ -10,17 +10,14 @@ public class DoorLock : MonoBehaviour
     private void Update()
     {
         if (GameManager.GM_Instance.HasKeys)
-            Destroy(this.gameObject);
+            this.gameObject.SetActive(false);
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            if (GameManager.GM_Instance.HasKeys)
-                m_doorController.DoorState = true;
-            else
-                m_doorController.DoorState = false;
+            m_doorController.IsLocked = true;
         }
     }
 }

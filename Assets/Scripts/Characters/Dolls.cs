@@ -13,17 +13,6 @@ public class Dolls : MonoBehaviour, IInteract
     {
         get { return m_pickedUp; }
     }
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     public void SetTransform(Transform targetTransform, bool isPickedUp)
     {

@@ -87,7 +87,8 @@ public class Player : Character
                             Dolls doll = this.GetComponentInChildren<Dolls>();
 
                             doll.SetTransform(dollCircle.CirclePositions[m_posIndex], false);
-                            m_posIndex++;
+                            if (m_posIndex < dollCircle.CirclePositions.Count)
+                                m_posIndex++;
                             dollCircle.DollsPlaced++;
                         }
                     } 
