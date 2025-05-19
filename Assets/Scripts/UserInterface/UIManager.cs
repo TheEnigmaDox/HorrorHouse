@@ -62,9 +62,9 @@ public class UIManager : MonoBehaviour
         if (Physics.Raycast(ray, out RaycastHit hit, 2, m_interactLayer))
         {
             if (hit.collider.gameObject.layer == 7)
-                Debug.Log("We are interacting");
+                m_currentCursor.sprite = m_hintCursor;
 
-            m_currentCursor.sprite = m_hintCursor;
+            //Debug.Log("We are interacting");
         }
         else
         {
@@ -74,7 +74,7 @@ public class UIManager : MonoBehaviour
 
     public void SetHint(string hintText)
     {
-        Debug.Log($"Hint Text : {hintText}");
+        //Debug.Log($"Hint Text : {hintText}");
 
         if (hintText != m_hintText.text)
         {
@@ -83,8 +83,23 @@ public class UIManager : MonoBehaviour
         }
         else
         {
+            if (m_currentAlpha >= 1)
+            {
+                FadeHint();
+            }
+
             m_currentAlpha = Mathf.Clamp(m_currentAlpha + m_alphaShift, 0, 1);
-            m_hintText.color = new Color(1, 0, 0, m_currentAlpha);
+            m_hintText.color = new Color(0, 0, 0, m_currentAlpha);
+        }
+
+        
+    }
+
+    private void FadeHint()
+    {
+        if (m_currentAlpha >= 1)
+        {
+            FadeHint();
         }
     }
 

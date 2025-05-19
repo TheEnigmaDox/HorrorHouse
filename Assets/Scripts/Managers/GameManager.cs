@@ -9,8 +9,6 @@ public class GameManager : MonoBehaviour
 
     private int m_killerCount = 0;
 
-    private int m_puzzlesComplete = 0;
-
     private bool m_mouseControl;
     public bool MouseControl
     {
@@ -83,7 +81,7 @@ public class GameManager : MonoBehaviour
         if (m_killerCount < 0)
             m_killerCount = 0;
 
-        Debug.Log(m_hasKeys);
+        //Debug.Log(m_hasKeys);
 
         if (m_hasKeys)
             m_frontDoor.GetComponent<DoorController>().IsLocked = false;
@@ -93,7 +91,7 @@ public class GameManager : MonoBehaviour
             SceneManager.LoadScene(2);
         }
 
-        Debug.Log($"Current Killer Count : {m_killerCount}");
+        //Debug.Log($"Current Killer Count : {m_killerCount}");
         //Debug.Log($"Puzzles Complete : {m_puzzlesComplete}");
     }
 
