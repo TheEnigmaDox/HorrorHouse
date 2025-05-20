@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class HintTrigger : MonoBehaviour
 {
+    private float m_duration = 2f;
+
     [SerializeField]
     private UIManager m_uiManager;
 
@@ -14,39 +16,14 @@ public class HintTrigger : MonoBehaviour
     [SerializeField]
     Dolls doll;
 
-    private void SetHallHint()
-    {
-        
-    }
+    [TextArea]
+    public string m_hint;
 
-    private void OnTriggerStay(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            switch (this.name)
-            {
-                case "BathroomTrigger":
-                    if (!m_radio.PlayerInteraction)
-                        m_uiManager.SetHint("She was never a fan of classical music.");
-                    else
-                        m_uiManager.SetHint("Alas she sank into the silence...");
-                    break;
-                case "BedroomTrigger":
-                    m_uiManager.SetHint("Now in the main bedroom.");
-                    break;
-                case "HallTrigger":
-                    m_uiManager.SetHint("Welcome to where it all ended...");
-                    break;
-                case "HallCupboardTrigger":
-                    if (!doll.IsPickedUp)
-                        m_uiManager.SetHint("This became her most use hiding place...");
-                    else
-                        m_uiManager.SetHint("Return her to her happy place...");
-                    break;
-                case "KitchenTrigger":
-                    m_uiManager.SetHint("The kitchen was her favourite room in the house...");
-                    break;
-            }
+            m_uiManager.SetHint(m_hint, m_duration);
         }
     }
 }

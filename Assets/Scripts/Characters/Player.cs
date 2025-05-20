@@ -27,8 +27,6 @@ public class Player : Character
     [SerializeField]
     private Slider m_sanityBar;
 
-
-
     [SerializeField]
     LayerMask m_interactLayer;
 
@@ -36,6 +34,14 @@ public class Player : Character
     {
         get { return m_mouseControl; }
         set { m_mouseControl = value; }
+    }
+
+    private List<GameObject> m_dollsCollected = new List<GameObject>();
+
+    public List<GameObject> DollsCollected
+    {
+        get { return m_dollsCollected; }
+        set { m_dollsCollected = value; }
     }
 
     private void Start()
@@ -65,7 +71,7 @@ public class Player : Character
         {
             if (Physics.Raycast(ray, out RaycastHit hit, 2, m_interactLayer))
             {
-                debugSphere.transform.position = hit.point;
+                //debugSphere.transform.position = hit.point;
 
                 //Debug.Log("We are looking at : " + hit.collider.gameObject.name);
 
@@ -82,9 +88,9 @@ public class Player : Character
                 {
                     for (int i = 0; i < dollCircle.CirclePositions.Count; i++)
                     {
-                        if (dollCircle.CirclePositions[m_posIndex] != null)
+                        if (m_posIndex < dollCircle.CirclePositions.Count && dollCircle.CirclePositions[m_posIndex] != null)
                         {
-                            Dolls doll = this.GetComponentInChildren<Dolls>();
+                            Dolls doll = Camera.main.GetComponentInChildren<Dolls>();
 
                             doll.SetTransform(dollCircle.CirclePositions[m_posIndex], false);
                             if (m_posIndex < dollCircle.CirclePositions.Count)
@@ -93,62 +99,6 @@ public class Player : Character
                         }
                     } 
                 }
-
-
-                //if (hit.collider.gameObject.GetComponent<DoorController>())
-                //{
-                //    DoorController doorController = hit.collider.gameObject.GetComponent<DoorController>();
-
-                //    doorController.DoorState = !doorController.DoorState;
-                //}
-                //else if (hit.collider.gameObject.GetComponent<LightSwitch>())
-                //{
-                //    LightSwitch lightSwitch = hit.collider.gameObject.GetComponent<LightSwitch>();
-
-                //    lightSwitch.IsOn = !lightSwitch.IsOn;
-                //}
-                //else if (hit.collider.transform.Find("Directional Light"))
-                //{
-                //    GameObject light = hit.collider.transform.Find("Directional Light").gameObject;
-
-                //    light.SetActive(!light.activeSelf);
-                //}
-                //else if (hit.collider.gameObject.GetComponent<Keyboard>())
-                //{
-                //    Keyboard keyboard = hit.collider.gameObject.GetComponent<Keyboard>();
-
-                //    keyboard.m_displayMessage = !keyboard.m_displayMessage;
-                //}
-                //else if (hit.collider.gameObject.GetComponent<Radio>())
-                //{
-                //    Radio radio = hit.collider.gameObject.GetComponent<Radio>();
-
-                //    radio.TurnRadioOff();
-                //}
-                //else if (hit.collider.gameObject.GetComponent<Dolls>())
-                //{
-                //    //Debug.Log("Found the doll!");
-
-                //    Dolls doll = hit.collider.gameObject.GetComponent<Dolls>();
-
-                //    doll.SetTransform(m_handPoint, true);
-                //}
-                //else if (hit.collider.gameObject.GetComponent<DollCircle>())
-                //{
-                //    DollCircle dollCircle = hit.collider.gameObject.GetComponent<DollCircle>();
-
-                //    for(int i = 0; i < dollCircle.CirclePositions.Count; i++)
-                //    {
-                //        if (dollCircle.CirclePositions[m_posIndex] != null)
-                //        {
-                //            Dolls doll = this.GetComponentInChildren<Dolls>();
-
-                //            doll.SetTransform(dollCircle.CirclePositions[m_posIndex], false);
-                //            m_posIndex++;
-                //            dollCircle.DollsPlaced++;
-                //        }
-                //    }
-                //}
             }
         }
     }

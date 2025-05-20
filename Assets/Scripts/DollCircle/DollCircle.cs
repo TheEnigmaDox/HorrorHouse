@@ -40,7 +40,6 @@ public class DollCircle : MonoBehaviour
 
         if(m_dollsPlaced == 4)
         {
-
             m_doorKeys.SetActive(true);
             m_sceneChanger.SetActive(true);
         }

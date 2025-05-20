@@ -11,6 +11,7 @@ TagManager:
   - Timer
   - Killer
   - Keys
+  - Doll
   layers:
   - Default
   - TransparentFX

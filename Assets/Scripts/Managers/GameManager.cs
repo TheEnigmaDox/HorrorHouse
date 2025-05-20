@@ -29,7 +29,6 @@ public class GameManager : MonoBehaviour
         set { m_gameTimer = value; }
     }
 
-
     [SerializeField]
     GameObject m_frontDoor;
     private Player m_player;
@@ -37,6 +36,8 @@ public class GameManager : MonoBehaviour
 
     [SerializeField]
     TMP_Text m_timerText;
+
+    UIManager m_uiManager;
 
     public int KillerCount
     {
@@ -57,9 +58,10 @@ public class GameManager : MonoBehaviour
     {
         DontDestroyOnLoad(this);
 
-        Application.targetFrameRate = 600;
+        Application.targetFrameRate = 60;
 
         m_player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+        m_uiManager = FindObjectOfType<UIManager>();
     }
 
     // Update is called once per frame
@@ -109,9 +111,19 @@ public class GameManager : MonoBehaviour
         if (m_timerText == null)
             m_timerText = GameObject.FindGameObjectWithTag("Timer").GetComponent<TMP_Text>();
 
-        m_gameTimer -= Time.deltaTime;
+        if (!m_uiManager.IsPaused)
+        {
+            m_mouseControl = true;
+            Cursor.lockState = CursorLockMode.Locked;
+            m_gameTimer -= Time.deltaTime; 
+        }
+        else
+        {
+            m_mouseControl = false;
+            Cursor.lockState = CursorLockMode.None;
+        }
 
-        int minutes = Mathf.FloorToInt(m_gameTimer / 60f);
+            int minutes = Mathf.FloorToInt(m_gameTimer / 60f);
         int seconds = Mathf.FloorToInt(m_gameTimer - minutes * 60f);
 
         string gameTime = string.Format("{0:0}:{1:00}", minutes, seconds);
@@ -121,15 +133,6 @@ public class GameManager : MonoBehaviour
         if (m_gameTimer < 0)
         {
             SceneManager.LoadScene(2);
-        }
-
-        if (Input.GetMouseButtonDown(0))
-        {
-            Cursor.lockState = CursorLockMode.Locked;
-        }
-        else if (Input.GetKeyDown("escape"))
-        {
-            Cursor.lockState = CursorLockMode.None;
         }
     }
 
