@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class Dolls : MonoBehaviour, IInteract
 {
-    int index = 0;
+    static int index = 0;
     private bool m_pickedUp = false;
 
     [SerializeField]

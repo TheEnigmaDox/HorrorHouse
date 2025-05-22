@@ -130,6 +130,7 @@ public class UIManager : MonoBehaviour
 
     public void PlayGame()
     {
+        GameManager.GM_Instance.HasKeys = false;
         GameManager.GM_Instance.GameTimer = 600;
         GameManager.GM_Instance.KillerCount = 0;
         SceneManager.LoadScene("GameScreen");
