@@ -8572,6 +8572,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f742fd16555a73245a2955fcbd2c3ba7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_hasKeys: 0
   m_frontDoor: {fileID: 3098847575090038886}
   m_timerText: {fileID: 0}
   m_pauseMenu: {fileID: 0}
@@ -19898,7 +19899,7 @@ GameObject:
   - component: {fileID: 8330763934844589684}
   m_Layer: 7
   m_Name: door
-  m_TagString: Untagged
+  m_TagString: FrontDoor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

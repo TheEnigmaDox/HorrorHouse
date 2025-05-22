@@ -34,6 +34,9 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     GameObject m_objectiveScreen;
 
+    [SerializeField]
+    DoorController m_frontDoor;
+
     //public static UIManager UI_Instance;
 
     private void Awake()
@@ -129,7 +132,7 @@ public class UIManager : MonoBehaviour
     }
 
     public void PlayGame()
-    {
+    {   
         GameManager.GM_Instance.HasKeys = false;
         GameManager.GM_Instance.GameTimer = 600;
         GameManager.GM_Instance.KillerCount = 0;

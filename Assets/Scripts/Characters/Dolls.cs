@@ -14,6 +14,8 @@ public class Dolls : MonoBehaviour, IInteract
 
     private Animator m_animator;
 
+    private DollCircle m_dollCircle;
+
     public bool IsPickedUp
     {
         get { return m_pickedUp; }
@@ -22,12 +24,11 @@ public class Dolls : MonoBehaviour, IInteract
     private void Start()
     {
         m_animator = GetComponent<Animator>();
+        m_dollCircle = FindObjectOfType<DollCircle>();
     }
 
     public void SetTransform(Transform targetTransform, bool isPickedUp)
     {
-        index++; //Ask Nigel about incrementing this index
-
         transform.SetParent(targetTransform);
         transform.localPosition = Vector3.zero;
         transform.localRotation = Quaternion.identity;
@@ -46,12 +47,23 @@ public class Dolls : MonoBehaviour, IInteract
     void IInteract.Interact()
     {
         if (this.CompareTag("Doll"))
-            SetTransform(m_storage[index].transform, true);
+        {
+            if (index >= m_storage.Count)
+            {
+                index = 0;
+                SetTransform(m_storage[index].transform, true);
+                index++;
+            }
+            else
+            {
+                SetTransform(m_storage[index].transform, true);
+                index++;
+            }
+        }
         else if (this.CompareTag("Keys"))
         {
             SetTransform(m_handPoint, true);
             GameManager.GM_Instance.HasKeys = true;
-        }
-            
+        }   
     }
 }

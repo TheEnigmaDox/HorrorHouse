@@ -16,6 +16,7 @@ TagManager:
   - Objective
   - Pause
   - Hint
+  - FrontDoor
   layers:
   - Default
   - TransparentFX

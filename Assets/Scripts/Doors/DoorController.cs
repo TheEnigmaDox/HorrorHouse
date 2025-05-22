@@ -13,7 +13,6 @@ public class DoorController : MonoBehaviour, IInteract
     private float m_lockTimer = 10f;
    
     private Animator m_animator;
-    private BoxCollider m_boxCollider;
 
     public bool IsLocked
     {
@@ -29,7 +28,6 @@ public class DoorController : MonoBehaviour, IInteract
     private void Start()
     {
         m_animator = GetComponent<Animator>();  
-        m_boxCollider = GetComponentInParent<BoxCollider>();
     }
 
     // Update is called once per frame

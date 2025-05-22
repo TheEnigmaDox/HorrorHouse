@@ -8,6 +8,12 @@ public class Player : Character
 {
     private int m_posIndex = 0;
 
+    public int PosIndex
+    {
+        get { return m_posIndex; } 
+        set { m_posIndex = value; }
+    }
+
     private bool m_mouseControl = false;
 
     private int m_sanity = 100;

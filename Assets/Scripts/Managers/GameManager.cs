@@ -8,6 +8,7 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    [SerializeField]
     private bool m_hasKeys = false;
 
     private int m_killerCount = 0;
@@ -96,8 +97,10 @@ public class GameManager : MonoBehaviour
 
         if (m_hasKeys && m_frontDoor != null)
             m_frontDoor.GetComponent<DoorController>().IsLocked = false;
+        else
+            m_frontDoor = GameObject.FindGameObjectWithTag("FrontDoor");
 
-        if(m_player.Sanity <= 0)
+        if (m_player.Sanity <= 0)
         {
             SceneManager.LoadScene(2);
         }
