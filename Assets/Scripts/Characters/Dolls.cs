@@ -1,7 +1,5 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class Dolls : MonoBehaviour, IInteract
 {
@@ -14,14 +12,21 @@ public class Dolls : MonoBehaviour, IInteract
     [SerializeField]
     private List<Transform> m_storage = new List<Transform>();
 
+    private Animator m_animator;
+
     public bool IsPickedUp
     {
         get { return m_pickedUp; }
     }
 
+    private void Start()
+    {
+        m_animator = GetComponent<Animator>();
+    }
+
     public void SetTransform(Transform targetTransform, bool isPickedUp)
     {
-        index++;
+        index++; //Ask Nigel about incrementing this index
 
         transform.SetParent(targetTransform);
         transform.localPosition = Vector3.zero;
@@ -32,6 +37,9 @@ public class Dolls : MonoBehaviour, IInteract
         if(this.CompareTag("Keys"))
             GameManager.GM_Instance.HasKeys = true;
 
+        if (m_animator != null)
+            m_animator.SetBool("IsPickedUp", true);
+
         Debug.Log($"Index : {index}");
     }
 
@@ -40,6 +48,10 @@ public class Dolls : MonoBehaviour, IInteract
         if (this.CompareTag("Doll"))
             SetTransform(m_storage[index].transform, true);
         else if (this.CompareTag("Keys"))
+        {
             SetTransform(m_handPoint, true);
+            GameManager.GM_Instance.HasKeys = true;
+        }
+            
     }
 }

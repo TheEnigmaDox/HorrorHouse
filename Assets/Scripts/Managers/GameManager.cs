@@ -1,7 +1,10 @@
-
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+
+//Ask Nigel about the Index increment for the doll positions.
+//Also ask why the door doesnt lock on second playthrough.
+
 
 public class GameManager : MonoBehaviour
 {
@@ -37,7 +40,13 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     TMP_Text m_timerText;
 
-    UIManager m_uiManager;
+    [SerializeField]
+    private PauseMenu m_pauseMenu;
+
+    public PauseMenu PauseMenu
+    {
+        get { return m_pauseMenu; }
+    }
 
     public int KillerCount
     {
@@ -61,7 +70,7 @@ public class GameManager : MonoBehaviour
         Application.targetFrameRate = 60;
 
         m_player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
-        m_uiManager = FindObjectOfType<UIManager>();
+        m_pauseMenu = FindObjectOfType<PauseMenu>();
     }
 
     // Update is called once per frame
@@ -85,7 +94,7 @@ public class GameManager : MonoBehaviour
 
         //Debug.Log(m_hasKeys);
 
-        if (m_hasKeys)
+        if (m_hasKeys && m_frontDoor != null)
             m_frontDoor.GetComponent<DoorController>().IsLocked = false;
 
         if(m_player.Sanity <= 0)
@@ -93,7 +102,7 @@ public class GameManager : MonoBehaviour
             SceneManager.LoadScene(2);
         }
 
-        //Debug.Log($"Current Killer Count : {m_killerCount}");
+        Debug.Log($"Current Killer Count : {m_killerCount}");
         //Debug.Log($"Puzzles Complete : {m_puzzlesComplete}");
     }
 
@@ -106,24 +115,24 @@ public class GameManager : MonoBehaviour
 
     private void UpdateGameScreen()
     {
+        m_pauseMenu = FindObjectOfType<PauseMenu>();
+
         m_mouseControl = true;
 
         if (m_timerText == null)
             m_timerText = GameObject.FindGameObjectWithTag("Timer").GetComponent<TMP_Text>();
 
-        if (!m_uiManager.IsPaused)
+        if (m_pauseMenu != null && !m_pauseMenu.IsPaused)
         {
             m_mouseControl = true;
-            Cursor.lockState = CursorLockMode.Locked;
-            m_gameTimer -= Time.deltaTime; 
+            m_gameTimer -= Time.deltaTime;
         }
         else
         {
             m_mouseControl = false;
-            Cursor.lockState = CursorLockMode.None;
         }
 
-            int minutes = Mathf.FloorToInt(m_gameTimer / 60f);
+        int minutes = Mathf.FloorToInt(m_gameTimer / 60f);
         int seconds = Mathf.FloorToInt(m_gameTimer - minutes * 60f);
 
         string gameTime = string.Format("{0:0}:{1:00}", minutes, seconds);

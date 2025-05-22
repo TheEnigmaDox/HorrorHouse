@@ -6,8 +6,6 @@ public class DollCircle : MonoBehaviour
 {
     private int m_dollsPlaced = 0;
 
-    private List<bool> m_posFilled = new List<bool>();
-
     [SerializeField]
     List<Transform> m_circlePositions = new List<Transform>();
 
@@ -27,20 +25,15 @@ public class DollCircle : MonoBehaviour
         set { m_dollsPlaced = value; }
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
     // Update is called once per frame
     void Update()
     {
-        Debug.Log($"Dolls placed : {m_dollsPlaced}");
+        //Debug.Log($"Dolls placed : {m_dollsPlaced}");
 
         if(m_dollsPlaced == 4)
         {
             m_doorKeys.SetActive(true);
+            m_doorKeys.transform.position = new Vector3(4.5f, 3, 5);
             m_sceneChanger.SetActive(true);
         }
     }

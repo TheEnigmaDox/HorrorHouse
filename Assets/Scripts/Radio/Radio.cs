@@ -24,20 +24,14 @@ public class Radio : MonoBehaviour, IInteract
         m_radioAudio = GetComponent<AudioSource>();
     }
 
-    //public void TurnRadioOff()
-    //{
-    //    if(m_radioIsOn)
-    //        Instantiate(m_doll, m_spawnPos.position, m_spawnPos.rotation);
-
-    //    m_radioIsOn = false;
-    //    m_radioAudio.Stop();
-    //}
-
     private void OnTriggerEnter(Collider other)
     {
         if(other.CompareTag("Player"))
         {
-            m_radioAudio.Play();
+            if(!m_playerInteraction)
+            {
+                m_radioAudio.Play();
+            }
         }  
     }
 

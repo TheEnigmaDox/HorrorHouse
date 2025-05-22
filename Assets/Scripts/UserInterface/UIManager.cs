@@ -1,20 +1,11 @@
 using System.Collections;
-using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
-    private bool m_isPaused = false;
-
-    public bool IsPaused
-    {
-        get { return m_isPaused; }
-    }
-
     private float m_fadeDuration = 2f;
 
     [SerializeField]
@@ -41,19 +32,28 @@ public class UIManager : MonoBehaviour
     CanvasGroup m_hintUI;
 
     [SerializeField]
-    CanvasGroup m_pauseMenu;
-    [SerializeField]
-    CanvasGroup m_objectiveScreen;
+    GameObject m_objectiveScreen;
+
+    //public static UIManager UI_Instance;
+
+    private void Awake()
+    {
+        //if (UI_Instance == null)
+        //    UI_Instance = this;
+        //else if (UI_Instance != this)
+        //    Destroy(this);
+    }
 
     // Start is called before the first frame update
     void Start()
     {
-        if (SceneManager.GetActiveScene().name == "GameScene")
+        //DontDestroyOnLoad(this);
+
+        if (SceneManager.GetActiveScene().name == "GameScreen")
         {
             StartCoroutine(FadeAlpha(0));
-            m_pauseMenu.gameObject.SetActive(false);
             m_currentCursor.sprite = m_normalCursor;
-            m_objectiveScreen.gameObject.SetActive(false);
+            Cursor.lockState = CursorLockMode.Locked;
         } 
     }
 
@@ -63,7 +63,7 @@ public class UIManager : MonoBehaviour
         switch (SceneManager.GetActiveScene().name)
         {
             case "TitleScreen":
-                //UpdateTitleScreen();
+                UpdateTitleScreen();
                 break;
             case "GameScreen":
                 UpdateGameScreen();
@@ -71,8 +71,16 @@ public class UIManager : MonoBehaviour
         }
     }
 
+    private void UpdateTitleScreen()
+    {
+        //m_currentCursor.sprite = m_normalCursor;
+    }
+
     private void UpdateGameScreen()
     {
+        if (m_currentCursor.isActiveAndEnabled)
+            m_currentCursor.sprite = m_normalCursor;
+
         Ray ray = Camera.main.ScreenPointToRay(new Vector2(960, 540));
         ray.origin = Camera.main.transform.position;
 
@@ -87,41 +95,6 @@ public class UIManager : MonoBehaviour
         {
             m_currentCursor.sprite = m_normalCursor;
         }
-
-        if (Input.GetKeyDown(KeyCode.Escape))
-            ShowPauseMenu();
-    }
-
-    private void ShowPauseMenu()
-    {
-        m_isPaused = true;
-
-        //GameManager.GM_Instance.GameTimer = GameManager.GM_Instance.GameTimer;
-
-        m_pauseMenu.gameObject.SetActive(true);
-    }
-
-    public void ResumeGame()
-    {
-        m_isPaused = false;
-        m_pauseMenu.gameObject.SetActive(false);
-    }
-
-    public void ShowObjective()
-    {
-        m_objectiveScreen.gameObject.SetActive(true);
-    }
-
-    public void HideObjective()
-    {
-        m_objectiveScreen.gameObject.SetActive(false);
-    }
-
-    public void ExitToMenu()
-    {
-        GameManager.GM_Instance.GameTimer = 600;
-        m_isPaused = false;
-        SceneManager.LoadScene(0);
     }
 
     public void SetHint(string hintText, float duration)
@@ -158,10 +131,9 @@ public class UIManager : MonoBehaviour
     public void PlayGame()
     {
         GameManager.GM_Instance.GameTimer = 600;
+        GameManager.GM_Instance.KillerCount = 0;
         SceneManager.LoadScene("GameScreen");
     }
-
-    
 
     public void PlayAgain()
     {
@@ -172,5 +144,15 @@ public class UIManager : MonoBehaviour
     {
         Application.Quit();
         Debug.Log("I QUIT!");
+    }
+
+    public void ShowControls()
+    {
+        m_objectiveScreen.SetActive(true);
+    }
+
+    public void CloseControls()
+    {
+        m_objectiveScreen.SetActive(false);
     }
 }
